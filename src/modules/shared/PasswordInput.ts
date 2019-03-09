@@ -1,8 +1,12 @@
-import { Field, InputType } from "type-graphql";
+import { Field, InputType, ClassType } from "type-graphql";
 //import { Min } from "class-validator";
 
-@InputType()
-export class PasswordInput {
-  @Field()
-  password: string;
-}
+export const PasswordMixin = <T extends ClassType>(BaseClass: T) => {
+  @InputType()
+  class PasswordInput extends BaseClass {
+    @Field()
+    password: string;
+  }
+
+  return PasswordInput;
+};
